@@ -265,7 +265,7 @@ void DataTest(int nbr, int walker, int det)
 		myfile << walker << "\t" << det << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 }
@@ -286,7 +286,7 @@ void FinalTime(string filename, clock_t & begin)
 		myfile << "Execution time: \t" << (float( clock () - begin ) /  CLOCKS_PER_SEC)/60.0 << "  hours" << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 }
@@ -304,7 +304,7 @@ string ModelType(string filename) {
 		getline(myfile, line);
 
 		myfile.close();
-	} catch (ifstream::failure e) {
+	} catch (ifstream::failure& e) {
 		cout << "Exception opening/reading file";
 	}
 

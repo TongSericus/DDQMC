@@ -66,7 +66,7 @@ QMC_state::QMC_state(string filename, System_Model & sys) {
 
 		myfile.close();
 
-	} catch (ifstream::failure e) {
+	} catch (ifstream::failure& e) {
 
 		cout << "Exception opening/reading file" << endl;
 	}
@@ -654,7 +654,7 @@ void QMC_state::Ms_WriteStat(string filename, int time)
 			myfile << time <<" \t " << stats.N_w << "\t"<< stats.diag_walk_re + stats.diag_walk_im << "\t" << pop_ctrl.shift <<" \t " << stats.det_nbr << "\t NaN \t NaN \t NaN \t"<< stats.diag_walk_re << "\t" << stats.diag_walk_im <<"\t NaN \t NaN" << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 }
@@ -684,7 +684,7 @@ void QMC_state::Ms_WriteStat_Support(std::string filename, int time)
 			myfile << time <<" \t " << stats.N_w << "\t"<< stats.diag_walk_re + stats.diag_walk_im << "\t" << pop_ctrl.shift <<" \t " << stats.det_nbr << "\t NaN \t NaN \t NaN \t NaN \t NaN \t NaN \t NaN \t"<<stats.diag_walk_re << "\t" << stats.diag_walk_im<<"\t NaN \t NaN" << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 }
@@ -713,7 +713,7 @@ void QMC_state::Ms_Write_Reset(int iter)
 		myfile << stats.N_w << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 }
@@ -736,7 +736,7 @@ void QMC_state::Sl_Write_Reset()
 		}
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 }
@@ -776,7 +776,7 @@ void QMC_state::Ms_Read_Reset(string filename, vector<bitset<Bl>> & refdets, vec
 
 		myfile.close();
 
-	} catch (ifstream::failure e) {
+	} catch (ifstream::failure& e) {
 
 		cout << "Parameters - Exception opening/reading file" << endl;
 	}
@@ -809,7 +809,7 @@ void QMC_state::Ms_Read_Reset(string filename, vector<bitset<Bl>> & refdets, vec
 
 			myfile.close();
 
-		} catch (ifstream::failure e) {
+		} catch (ifstream::failure& e) {
 
 			cout << "Determinants - Exception opening/reading file - Is bitset length correct?" << endl;
 		}

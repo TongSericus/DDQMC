@@ -88,7 +88,7 @@ void System_Model::Init(string filename)
 
 		myfile.close();
 	}
-	catch (ifstream::failure e)
+	catch (ifstream::failure& e)
 	{
 		cout << "Exception opening/reading file!!";
 	}
@@ -109,7 +109,7 @@ void System_Model::MPI_Data(MPI_Datatype & p, MPI_Datatype & s, MPI_Datatype & s
 
 	offsets00[0] = 0;
 
-	MPI_Type_struct(1, blockcounts00, offsets00, oldtypes00, &bitset_type);
+	MPI_Type_create_struct(1, blockcounts00, offsets00, oldtypes00, &bitset_type);
 	MPI_Type_commit(&bitset_type);
 
 	///////////////////////////////////////////////////////////////////////////////////
@@ -127,15 +127,15 @@ void System_Model::MPI_Data(MPI_Datatype & p, MPI_Datatype & s, MPI_Datatype & s
 	oldtypes[1] = MPI_DOUBLE;
 	oldtypes[2] = bitset_type;
 
-	MPI_Address(&mod.xSite, &offsets[0]);
-	MPI_Address(&mod.J_x, &offsets[1]);
-	MPI_Address(&mod.reference, &offsets[2]);
+	MPI_Get_address(&mod.xSite, &offsets[0]);
+	MPI_Get_address(&mod.J_x, &offsets[1]);
+	MPI_Get_address(&mod.reference, &offsets[2]);
 
 	offsets[2] = offsets[2] - offsets[0];
 	offsets[1] = offsets[1] - offsets[0];
 	offsets[0] = 0;
 
-	MPI_Type_struct(3, blockcounts, offsets, oldtypes, &p);
+	MPI_Type_create_struct(3, blockcounts, offsets, oldtypes, &p);
 	MPI_Type_commit(&p);
 
 	///////////////////////////////////////////////////////////////////////////////////
@@ -151,13 +151,13 @@ void System_Model::MPI_Data(MPI_Datatype & p, MPI_Datatype & s, MPI_Datatype & s
 	oldtypes2[0] = MPI_INTEGER;
 	oldtypes2[1] = MPI_CXX_DOUBLE_COMPLEX;
 
-	MPI_Address(&proba.N_w, &offsets2[0]);
-	MPI_Address(&proba.Mx, &offsets2[1]);
+	MPI_Get_address(&proba.N_w, &offsets2[0]);
+	MPI_Get_address(&proba.Mx, &offsets2[1]);
 
 	offsets2[1] = offsets2[1] - offsets2[0];
 	offsets2[0] = 0;
 
-	MPI_Type_struct(2, blockcounts2, offsets2, oldtypes2, &s);
+	MPI_Type_create_struct(2, blockcounts2, offsets2, oldtypes2, &s);
 	MPI_Type_commit(&s);
 
 	///////////////////////////////////////////////////////////////////////////////////
@@ -173,13 +173,13 @@ void System_Model::MPI_Data(MPI_Datatype & p, MPI_Datatype & s, MPI_Datatype & s
 	oldtypes3[0] = bitset_type;
 	oldtypes3[1] = MPI_INTEGER;
 
-	MPI_Address(&sp_probe.det, &offsets3[0]);
-	MPI_Address(&sp_probe.nbr_re, &offsets3[1]);
+	MPI_Get_address(&sp_probe.det, &offsets3[0]);
+	MPI_Get_address(&sp_probe.nbr_re, &offsets3[1]);
 
 	offsets3[1] = offsets3[1] - offsets3[0];
 	offsets3[0] = 0;
 
-	MPI_Type_struct(2, blockcounts3, offsets3, oldtypes3, &sp);
+	MPI_Type_create_struct(2, blockcounts3, offsets3, oldtypes3, &sp);
 	MPI_Type_commit(&sp);
 
 
@@ -196,13 +196,13 @@ void System_Model::MPI_Data(MPI_Datatype & p, MPI_Datatype & s, MPI_Datatype & s
 	oldtypes4[0] = MPI_INTEGER;
 	oldtypes4[1] = MPI_DOUBLE;
 
-	MPI_Address(&pop_probe.ctrl, &offsets4[0]);
-	MPI_Address(&pop_probe.shift, &offsets4[1]);
+	MPI_Get_address(&pop_probe.ctrl, &offsets4[0]);
+	MPI_Get_address(&pop_probe.shift, &offsets4[1]);
 
 	offsets4[1] = offsets4[1] - offsets4[0];
 	offsets4[0] = 0;
 
-	MPI_Type_struct(2, blockcounts4, offsets4, oldtypes4, &sh);
+	MPI_Type_create_struct(2, blockcounts4, offsets4, oldtypes4, &sh);
 	MPI_Type_commit(&sh);
 }
 
@@ -309,7 +309,7 @@ string System_Model::OutputGen(int cycle, int target_nbr, double shift, bitset<B
 		myfile << "--------------------------------------------" << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 
@@ -362,7 +362,7 @@ string System_Model::OutputGen(int cycle, int target_nbr, double shift, bitset<B
 		myfile << "--------------------------------------------" << endl;
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 

@@ -107,7 +107,7 @@ cout << i << endl;
 		}
 
 		myfile.close();
-	} catch (ofstream::failure e) {
+	} catch (ofstream::failure& e) {
 		cout << "Exception opening/writing file";
 	}
 
